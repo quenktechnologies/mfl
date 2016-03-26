@@ -51,7 +51,7 @@ describe('Parser', function() {
 
             input = 'tag:old OR tag:new OR user:?grandma OR filetype:jpeg';
             parse();
-            console.log(JSON.stringify(result));
+            must(result).eql(expects[this.test.title]);
 
         });
 

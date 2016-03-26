@@ -47,23 +47,30 @@ query
                 };
                 return $$;
               }
+            | filter EOF {
+
+              $$ = {
+              type:'query',
+              filters: {AND:[$1], OR:[]}
+              };
+              return $$;
+            }
             ;
 
 filters
+            
+            : filter 'OR'? filter   {
 
-            : filter {
-
-              $$ = {'OR':[], 'AND':[$1]};
-
-            }
-
-            | filter 'OR'? filters   {
-
-                $$ = $3;
-                $$[$2 || 'AND'].push($1);
+                $$ = {AND:[], OR:[]};
+                $$[$2 || 'AND'].push($1, $3);
 
               }
-           
+            | filters 'OR'? filter {
+
+              $$ = $1;
+              $$[$2 || 'AND'].push($3);
+
+            }
             ;
 
 filter      
