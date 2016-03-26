@@ -51,17 +51,19 @@ query
 
 filters
 
-            : filter 'OR'? filters   {
+            : filter {
+
+              $$ = {'OR':[], 'AND':[$1]};
+
+            }
+
+            | filter 'OR'? filters   {
 
                 $$ = $3;
                 $$[$2 || 'AND'].push($1);
 
               }
-            | filter {
-
-              $$ = {'OR':[], 'AND':[$1]};
-
-            }
+           
             ;
 
 filter      
