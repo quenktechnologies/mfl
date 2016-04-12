@@ -1,15 +1,12 @@
 import must from 'must';
-import expects from './expectations';
-import {
-    parser
-}
-from '../src/parser';
+import expects from './asts';
+import * as mqfl from '../src/lib';
 
 var input = null;
 var result = null;
 
 function parse(text) {
-    result = parser.parse(text || input);
+    result = mqfl.parse(text || input);
 }
 
 describe('Parser', function() {
@@ -50,6 +47,14 @@ describe('Parser', function() {
         it('should parse with the OR operator', function() {
 
             input = 'tag:old OR tag:new OR user:?grandma OR filetype:jpeg';
+            parse();
+            must(result).eql(expects[this.test.title]);
+
+        });
+
+        it('should parse the $in function', function() {
+
+            input = 'tag:[24, 88.9,"mumch", 23.5, "Cake mix"]';
             parse();
             must(result).eql(expects[this.test.title]);
 

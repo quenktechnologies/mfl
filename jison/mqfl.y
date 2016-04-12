@@ -18,7 +18,7 @@
 [0-9]+'.'[0-9]+                                                 return 'FLOAT';
 [0-9]+                                                          return 'INTEGER';
 'OR'                                                            return 'OR';
-[^\[?<>:\s"]+                                                   return 'FIELD';
+[^\[\]?<>:\s,"]+                                                return 'FIELD';
 '['                                                             return '[';
 ']'                                                             return ']';
 ','                                                             return ',';
@@ -91,6 +91,14 @@ filter
                 value: $3
                 }
               }
+            | FIELD ':' '[' value ']' {
+                $$ = {
+                type: 'filter',
+                field: $1,
+                operator: '$in',
+                value: [$4]
+                }
+              }
             | FIELD ':' '[' value_list ']' {
                 $$ = {
                 type: 'filter',
@@ -111,6 +119,11 @@ operator
     | '?'                           { $$ = '?';                   }
     ;
 
+value_list
+    : value ',' value              { $$ = [$1, $3]                }
+    | value_list ',' value         { $$ = $1.concat($3);          }
+    ;
+
 value
     : TRUE                          { $$ = true;                  }
     | FALSE                         { $$ = false;                 }
@@ -118,9 +131,4 @@ value
     | FLOAT                         { $$ = parseFloat($1);        }
     | '"' QUOTED '"'                { $$ = $2;                    }
     | FIELD                         { $1 = $1;                    }
-    ;
-
-value_list
-    : value ',' value_list          { $$ = [$1].concat($2);       }
-    | value                         { $$ = [$1];                  }
     ;

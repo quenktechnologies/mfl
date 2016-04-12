@@ -11,39 +11,33 @@ export default {
             }]
         }
     },
-    'should parse multiple filters':{
-  'type': 'query',
-  'filters': {
-    'AND': [
-      {
-        'type': 'filter',
-        'field': 'type',
-        'operator': '=',
-        'value': 'c'
-      },
-      {
-        'type': 'filter',
-        'field': 'name',
-        'operator': '=',
-        'value': 'johan'
-      },
-      {
-        'type': 'filter',
-        'field': 'active',
-        'operator': '=',
-        'value': false
-      },
-      {
-        'type': 'filter',
-        'field': 'stars',
-        'operator': '>',
-        'value': 22
-      }
-    ],
-    'OR': [
-    ]
-  }
-},
+    'should parse multiple filters': {
+        'type': 'query',
+        'filters': {
+            'AND': [{
+                'type': 'filter',
+                'field': 'type',
+                'operator': '=',
+                'value': 'c'
+            }, {
+                'type': 'filter',
+                'field': 'name',
+                'operator': '=',
+                'value': 'johan'
+            }, {
+                'type': 'filter',
+                'field': 'active',
+                'operator': '=',
+                'value': false
+            }, {
+                'type': 'filter',
+                'field': 'stars',
+                'operator': '>',
+                'value': 22
+            }],
+            'OR': []
+        }
+    },
     'should parse with all basic operators': {
         'type': 'query',
         'filters': {
@@ -102,5 +96,8 @@ export default {
                 'value': 'jpeg'
             }]
         }
-    }
+    },
+    'should parse the $in function':
+{"type":"query","filters":{"AND":[{"type":"filter","field":"tag","operator":"$in","value":[24,88.9,"mumch",23.5,"Cake mix"]}],"OR":[]}}
+
 };
