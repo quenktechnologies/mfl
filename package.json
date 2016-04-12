@@ -3,11 +3,13 @@
     "version": "0.0.1",
     "description": "",
     "main": "index.js",
+    "files":["build"],
     "scripts": {
         "parser": "./node_modules/.bin/jison -o src/parser.js jison/mqfl.y",
         "parse-test": "./node_modules/.bin/mocha --opts mocha.opts test/parse",
         "convert-test": "./node_modules/.bin/mocha --opts mocha.opts test/convert",
-        "build": "rm -R build; node_modules/.bin/babel -D -w src -s true -d build"
+        "build": "rm -R build; node_modules/.bin/babel -D -w src -s true -d build",
+        "postinstall": "cp -R ./build/* . ; rm -R build"
     },
     "author": "Lasana Murray <lmurray@quenk.com> (http://quenk.com)",
     "license": "Apache-2.0",
