@@ -43,7 +43,7 @@ function get_clause(field, symbol, value) {
             break;
 
         case '?':
-            clause[field] = {$regex:value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")};
+            clause[field] = {$regex:value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), $options:'i'};
             break;
         default:
             break;
