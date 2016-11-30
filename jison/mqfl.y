@@ -17,7 +17,7 @@
 ':'                                                             return ':';
 [0-9]+'.'[0-9]+                                                 return 'FLOAT';
 [0-9]+                                                          return 'INTEGER';
-'OR'                                                            return 'OR';
+'OR'|'or'                                                       return 'OR';
 [^\[\]?<>:\s,"]+                                                return 'FIELD';
 '['                                                             return '[';
 ']'                                                             return ']';
@@ -58,7 +58,7 @@ query
             ;
 
 filters
-            
+
             : filter 'OR'? filter   {
 
                 $$ = {AND:[], OR:[]};
@@ -73,7 +73,7 @@ filters
             }
             ;
 
-filter      
+filter
 
             : FIELD ':' operator value {
                 $$ = {
@@ -87,7 +87,7 @@ filter
                 $$ = {
                 type: 'filter',
                 field: $1,
-                operator:'=',
+                operator:'?',
                 value: $3
                 }
               }
@@ -109,7 +109,7 @@ filter
               }
             ;
 
-operator   
+operator
 
     : '>'                           { $$ = '>';                   }
     | '<'                           { $$ = '<';                   }
