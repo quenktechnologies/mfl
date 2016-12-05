@@ -1,7 +1,7 @@
 {
   "name": "mfl",
   "version": "0.0.2",
-  "description": "",
+  "description": "Simple query filter language for MongoDB",
   "main": "lib/Filter.js",
   "files": [
     "lib"
