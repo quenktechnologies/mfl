@@ -1,11 +1,14 @@
-# MQFL
+# MFL
 
-Mongo Query Filter Language
+MongoDB Filter Language
 
-This is an attempt to provide a super simple syntax for generating the
-filtering parts of a MongoDB query.
+This is a simple string parser than generates MongoDB compatiable filter
+objects from a string.
 
-Ideally it would allow you to turn:
+Use it for search forms or api endpoint queries.
+
+
+Turns:
 `type:c created_by:ffan client.name:?hospital`
 
 into:
@@ -15,11 +18,10 @@ into:
 {
   type: 'c',
   created_by: 'ffan',
-  'client.name': {$regex:new RegExp('hospital')}
+  'client.name': {$regex:new RegExp('hospital'), options:'i'}
 }
 
 ```
-after some processing of course.
 
 #License
 

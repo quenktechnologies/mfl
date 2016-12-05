@@ -36,6 +36,18 @@
 /lex
 %ebnf
 %start query
+
+%{
+
+ parser.parseError = function(errStr, object) {
+     var lines = errStr.split("\n");
+     lines[0] = "ParseError: unexpected character in filter at " + (object.loc.first_column + 1);
+     throw new Error(lines.join("\n"));
+ };
+
+%}
+
+
 %%
 
 query
@@ -87,7 +99,7 @@ filter
                 $$ = {
                 type: 'filter',
                 field: $1,
-                operator:'?',
+                operator:'=',
                 value: $3
                 }
               }

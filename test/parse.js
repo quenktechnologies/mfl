@@ -1,12 +1,12 @@
 import must from 'must';
 import expects from './asts';
-import * as mqfl from '../src/lib';
+import * as mfl from '../src/Filter';
 
 var input = null;
 var result = null;
 
 function parse(text) {
-    result = mqfl.parse(text || input);
+    result = mfl.parse(text || input);
 }
 
 describe('Parser', function() {
